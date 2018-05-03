@@ -8,7 +8,7 @@
 [成为Java顶尖程序员 ，看这11本书就够了]:https://blog.csdn.net/u012410733/article/details/51869105
 [Idea中Git的使用和两种类型的冲突解决]:https://blog.csdn.net/sszgg2006/article/details/73342566 ""
 [创建新分支]:https://blog.csdn.net/autfish/article/details/52513465
-
+[基于spring+quartz的分布式定时任务框架]:https://www.cnblogs.com/aaronfeng/p/5537177.html
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
