@@ -9,6 +9,9 @@
 [Idea中Git的使用和两种类型的冲突解决]:https://blog.csdn.net/sszgg2006/article/details/73342566 ""
 [创建新分支]:https://blog.csdn.net/autfish/article/details/52513465
 [基于spring+quartz的分布式定时任务框架]:https://www.cnblogs.com/aaronfeng/p/5537177.html
+[GemFire]:http://docs.spring.io/spring-data-gemfire/docs/1.8.5.RELEASE/reference/html/#spring-gemfire-reference
+[在IDEA中实战Git]:https://blog.csdn.net/autfish/article/details/52513465
+[miuxuefeng]:https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -20,3 +23,5 @@
 * [成为Java顶尖程序员 ，看这11本书就够了]
 * [Idea中Git的使用和两种类型的冲突解决]
 * [创建新分支]
+* [GemFire]
+* [miuxuefeng]
