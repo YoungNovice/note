@@ -12,6 +12,7 @@
 [GemFire]:http://docs.spring.io/spring-data-gemfire/docs/1.8.5.RELEASE/reference/html/#spring-gemfire-reference
 [在IDEA中实战Git]:https://blog.csdn.net/autfish/article/details/52513465
 [miuxuefeng]:https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+[关于 Spring AOP (AspectJ) 你该知晓的一切]:https://blog.csdn.net/javazejian/article/details/56267036
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -25,3 +26,4 @@
 * [创建新分支]
 * [GemFire]
 * [miuxuefeng]
+* [关于 Spring AOP (AspectJ) 你该知晓的一切]
