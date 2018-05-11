@@ -16,7 +16,7 @@
 2. 引出select in 功能 他可以查找很多地方的东西 不止project view
 3. 再findAction 中搜索select in
 
-### ctrl + · swith 模式
+### ctrl + · switch 模式
 
 # IdeaVim 使用
 1. :sp  水平分割
