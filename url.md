@@ -16,6 +16,9 @@
 [Java获取函数参数名称的几种方法]:https://blog.csdn.net/wwwwenl/article/details/53427039
 [QuartzJob 详解]:https://blog.csdn.net/wjacketcn/article/details/51133098
 [Atomikos分布式事物]:https://www.cnblogs.com/FlyHeLanMan/p/7767678.html
+[Java线程池（ThreadPool）详解]:https://www.cnblogs.com/kuoAT/p/6714762.html 
+[怎么阅读Spring源码？]:https://www.zhihu.com/question/21346206
+[Java线程池源码解析及高质量代码案例]:https://www.aliyun.com/jiaocheng/585131.html
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]

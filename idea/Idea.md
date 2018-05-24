@@ -29,4 +29,7 @@
 4. alt + 上/下 方法之间跳动
 5. ctrl + shift + j 合并行 join line
 6. ctrl + shift + 上/下 块移动  alt + shift + 上/下 行移动
+
+### 
+alt + f7 find usage
  
