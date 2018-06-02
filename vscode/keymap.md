@@ -4,10 +4,12 @@
 * ctrl + P  open , go to file
 * ctrl + shift + N 新开一个窗口
 * ctrl + shift + W 关闭一个窗口
-* ctrl + R  打开最近的项目或者文件
+* ctrl + R  打开最近的项目或者文件 
 * ctrl + D 多选
 * ctrl + G 跳转跳转指定行
 * ctrl + E 命令行 输入?查询指令 这个超级好用
+
+
 
 
 ### 主界面快捷键
