@@ -19,6 +19,9 @@
 [Java线程池（ThreadPool）详解]:https://www.cnblogs.com/kuoAT/p/6714762.html 
 [怎么阅读Spring源码？]:https://www.zhihu.com/question/21346206
 [Java线程池源码解析及高质量代码案例]:https://www.aliyun.com/jiaocheng/585131.html
+[VS Code前端必备插件]:https://blog.csdn.net/uisoul/article/details/78660839
+[Oracle树查询]:https://www.cnblogs.com/yingsong/p/5035907.html
+[Oracle判断两个时间段是否相交]:https://www.cnblogs.com/henuyuxiang/p/6904376.html
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -36,3 +39,6 @@
 * [Java获取函数参数名称的几种方法]
 * [QuartzJob 详解]
 * [Atomikos分布式事物]
+* [VS Code前端必备插件]
+* [Oracle树查询]
+* [Oracle判断两个时间段是否相交]
