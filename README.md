@@ -22,6 +22,7 @@
 [VS Code前端必备插件]:https://blog.csdn.net/uisoul/article/details/78660839
 [Oracle树查询]:https://www.cnblogs.com/yingsong/p/5035907.html
 [Oracle判断两个时间段是否相交]:https://www.cnblogs.com/henuyuxiang/p/6904376.html
+[vscode官方文档]:https://code.visualstudio.com/docs#vscode
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -42,3 +43,4 @@
 * [VS Code前端必备插件]
 * [Oracle树查询]
 * [Oracle判断两个时间段是否相交]
+* [vscode官方文档]
