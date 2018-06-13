@@ -5,3 +5,10 @@
 
 * idea /usr/myapp下面
 * /usr/myapp/jetbrainsCrack/JetbrainsCrack-2.8-release-enc.jar
+
+
+* 搜狗输入法卸载
+* sudo dpkg -l so* 找到sogoupinyin
+* sudo apt-get purge sogoupinyin
+
+
