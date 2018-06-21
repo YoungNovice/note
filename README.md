@@ -25,6 +25,7 @@
 [vscode官方文档]:https://code.visualstudio.com/docs#vscode
 [vscode Git]:https://blog.csdn.net/xuanhun521/article/details/52994915
 [画夜的CSDN]:https://blog.csdn.net/zsr_251/article/category/2911639
+[GO圣经]:https://books.studygolang.com/gopl-zh/
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -37,12 +38,19 @@
 * [Idea中Git的使用和两种类型的冲突解决]
 * [创建新分支]
 * [GemFire]
+* [在IDEA中实战Git]
 * [miuxuefeng]
 * [关于 Spring AOP (AspectJ) 你该知晓的一切]
 * [Java获取函数参数名称的几种方法]
 * [QuartzJob 详解]
 * [Atomikos分布式事物]
+* [Java线程池（ThreadPool）详解]
+* [怎么阅读Spring源码？]
+* [Java线程池源码解析及高质量代码案例]
 * [VS Code前端必备插件]
 * [Oracle树查询]
 * [Oracle判断两个时间段是否相交]
 * [vscode官方文档]
+* [vscode Git]
+* [画夜的CSDN]
+* [GO圣经]
