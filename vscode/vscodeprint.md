@@ -2,7 +2,6 @@
 alt + 上/下 move line
 shift + alt + 上下复制一行
 ctrl + enter 下面插入一行
-ctrl + shift + \ 跳转到括号 这个很有用 我一值在找
 ctrl + 上下 滚动条 这个有用
 
 ### 搜索相关
