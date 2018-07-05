@@ -29,6 +29,8 @@
 [golang语言编译的二进制可执行文件为什么比 C 语言大]:http://www.cnxct.com/why-golang-elf-binary-file-is-large-than-c/
 [大牛公司github官网整理]:https://segmentfault.com/a/1190000009475248
 [Java四种引用包括强引用，软引用，弱引用，虚引用。]:https://www.cnblogs.com/yw-ah/p/5830458.html
+[一年成为Emacs高手(像神一样使用编辑器)]:https://blog.csdn.net/redguardtoo/article/details/7222501
+
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -60,3 +62,4 @@
 * [golang语言编译的二进制可执行文件为什么比 C 语言大]
 * [大牛公司github官网整理]
 * [Java四种引用包括强引用，软引用，弱引用，虚引用。]
+* [一年成为Emacs高手(像神一样使用编辑器)]
