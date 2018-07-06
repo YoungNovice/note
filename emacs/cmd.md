@@ -21,3 +21,6 @@ emacs配置文件常见有 .emacs init.el
 配置规则
 1. emacs会在系统中寻找一个名为HOME的变量 其执行的路径下寻找配置文件
 
+通过 C-h v user-emavs-directory 指代home路径
+
+init.el
