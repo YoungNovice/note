@@ -13,8 +13,3 @@
 * f7 收尾标签移动 shift f7 很重要
 ###### 类似于idea 的ctrl+w ctrl+shift+w
 shift + alt + left/right
-
-### 重构
-* 在explorer里右键Set file to compare, 然后要比对文件上右键选择 compare with ....
-* f2 重命名
-* crlt + f2 同时修改本文件中所有的匹配
