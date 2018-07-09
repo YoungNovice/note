@@ -1,6 +1,5 @@
 ### vocode 最重要的快捷键
 
-* ctrl + shift + P 命令窗口
 * ctrl + E 命令行 输入?查询指令 这个超级好用
 * ctrl + P  open , go to file
 * ctrl + shift + N 新开一个窗口
