@@ -20,7 +20,6 @@
 ### 光标
 ###### 括号
 * f7 收尾标签移动 shift f7 很重要
-* ctrl + shift + \ 转到括号 重要
 ###### 类似于idea 的ctrl+w ctrl+shift+w
 shift + alt + left/right
 ###### 行操作
@@ -33,26 +32,6 @@ shift + alt + left/right
 * alt + click 基本的 按住alt 鼠标一个个点击
 
 ### 重构
-* f8 跳转到下一个Error或者Warning 
 * 在explorer里右键Set file to compare, 然后要比对文件上右键选择 compare with ....
 * f2 重命名
 * crlt + f2 同时修改本文件中所有的匹配
-
-
-
-
-
-
-
-
-
-
-
-### 主界面快捷键
-* ctrl + shift + E 文件管理器
-* ctrl + shift + F 跨文件搜索
-* ctrl + shift + G 源代码管理
-* ctrl + shift + D 启动和调试
-* ctrl + shift + X 插件
-* ctrl + shift + M 错误和警告
-* ctrl + q 如果记不住上面的可以试试这个
