@@ -23,7 +23,6 @@
 [Oracle树查询]:https://www.cnblogs.com/yingsong/p/5035907.html
 [Oracle判断两个时间段是否相交]:https://www.cnblogs.com/henuyuxiang/p/6904376.html
 [vscode官方文档]:https://code.visualstudio.com/docs#vscode
-[vscode Git]:https://blog.csdn.net/xuanhun521/article/details/52994915
 [画夜的CSDN]:https://blog.csdn.net/zsr_251/article/category/2911639
 [GO圣经]:https://books.studygolang.com/gopl-zh/
 [golang语言编译的二进制可执行文件为什么比 C 语言大]:http://www.cnxct.com/why-golang-elf-binary-file-is-large-than-c/
@@ -57,7 +56,6 @@
 * [Oracle树查询]
 * [Oracle判断两个时间段是否相交]
 * [vscode官方文档]
-* [vscode Git]
 * [画夜的CSDN]
 * [GO圣经]
 * [golang语言编译的二进制可执行文件为什么比 C 语言大]
