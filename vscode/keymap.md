@@ -1,14 +1,5 @@
 ### vocode 最重要的快捷键
-
-* ctrl + E 命令行 输入?查询指令 这个超级好用
-* ctrl + P  open , go to file
-* ctrl + shift + N 新开一个窗口
-* ctrl + w 关闭一个editor
-* ctrl + shift + W 关闭一个窗口
-* ctrl + R  打开最近的项目或者文件 
 * ctrl + D 选中一个单词
-* ctrl + G 跳转跳转指定行
-* ctrl + \ 编辑器分屏 最多三个 ctrl+1 ctrl+2 ctrl+3 可以在三个间切换
 
 ### 代码移动
 * ctrl + [ ] 代码缩进
