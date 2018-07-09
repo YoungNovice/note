@@ -1,13 +1,3 @@
-### 编辑相关
-alt + 上/下 move line
-shift + alt + 上下复制一行
-ctrl + enter 下面插入一行
-ctrl + 上下 滚动条 这个有用
-
-### 搜索相关
-ctrl + f find
-ctrl + H replace
-
 ### 列操作
 alt + 左键 
 ctrl + alt + 上下  向上下添加列光标
