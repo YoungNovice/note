@@ -31,6 +31,7 @@
 [一年成为Emacs高手(像神一样使用编辑器)]:https://blog.csdn.net/redguardtoo/article/details/7222501
 [50 个 Chrome Developer Tools 必备技巧]:https://devopen.club/course/chromedevtools
 [分享原创的软件开发视频]:https://devopen.club/
+[idea任务跟踪]:https://blog.csdn.net/zhaoenweiex/article/details/79774288
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
 * [SpringMVC拦截器详解(附带源码分析)]
@@ -64,3 +65,4 @@
 * [一年成为Emacs高手(像神一样使用编辑器)]
 * [50 个 Chrome Developer Tools 必备技巧]
 * [分享原创的软件开发视频]
+* [idea任务跟踪]
