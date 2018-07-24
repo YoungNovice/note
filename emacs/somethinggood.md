@@ -1,0 +1,2 @@
+ftp:http://ftp.gnu.org/pub/gnu/emacs/windows/
+
