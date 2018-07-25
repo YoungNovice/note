@@ -1,0 +1,18 @@
+select distinct aa.id, aa.ly_bt, aa.ly_key,aa.ly_key_value, aa.ly_table,aa.sssj, dd.*
+from t_ssgg_fcjg_ys bb,
+  t_ssgg_fc_flsjcc aa,
+  (同一群体的其他人) dd,
+  (自己的分类数据) ee
+where dd.person_name = bb.gjc
+      and aa.id = ee.id
+      and bb.sj_id=aa.id
+      and aa.sssj>=?
+
+
+-- 包含有自己名字的分类数据的主键
+select distinct a.id, a.ly_bt, a.ly_key, a.ly_table, a.cqsj
+from t_ssgg_fcjg_ys b, t_ssgg_fc_flsjcc a, t_qbgl_ssga c
+where b.sj_id = a.id
+      and b.gjc = c.person_name
+      and c.person_idnum = ?
+
