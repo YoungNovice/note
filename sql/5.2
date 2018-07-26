@@ -1,0 +1,28 @@
+select distinct
+  b.*,
+  a.infor_title   inforTitle,
+  a.infor_addtime sbDate,
+  a.id            inforId
+from (select *
+      from t_qbgl_detail t
+      start with t.id in
+                 (select qb.id
+                  from t_qbgl_detail qb, t_qbgl_ssga ssgg
+                  where qb.id = ssgg.person_inforcode
+                        and ssgg.person_idnum = ?)
+      CONNECT BY PRIOR t.infor_continueid = t.id
+      union all
+      select *
+      from t_qbgl_detail t
+      start with t.id in
+                 (select qb.id
+                  from t_qbgl_detail qb, t_qbgl_ssga ssgg
+                  where qb.id = ssgg.person_inforcode
+                        and ssgg.person_idnum = ?)
+      CONNECT BY PRIOR t.infor_continueid = t.id) a,
+  t_qbgl_ssga b
+where a.id = b.person_inforcode and b.person_idnum != ?
+      -- 是否上报
+      and a.infor_draft = 1
+      -- 信息状态
+      and a.infor_lead in (5, 7)

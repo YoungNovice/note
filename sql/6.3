@@ -1,0 +1,26 @@
+select distinct aa.id, aa.ly_bt, aa.ly_key,aa.ly_key_value, aa.ly_table,aa.sssj, dd.*
+from t_ssgg_fcjg_ys bb,
+  t_ssgg_fc_flsjcc aa,
+  -- 同群体的其他人
+  (select distinct t2.person_idnum, t2.person_name
+   from t_qbgl_detail t
+     join t_qbgl_ssga t2 on t.id = t2.person_inforcode
+     join t_qbgl_ssgg_rylb t3 on t2.id=t3.ssggid
+     join t_qbgl_rylb t4 on t3.rylbbm=t4.rylbbm
+     join (select distinct tt4.*
+           from t_qbgl_detail tt
+             join t_qbgl_ssga tt2 on tt.id = tt2.person_inforcode
+             join t_qbgl_ssgg_rylb tt3 on tt2.id=tt3.ssggid
+             join t_qbgl_rylb tt4 on tt3.rylbbm=tt4.rylbbm
+           where tt2.person_idnum = ?) t5 on t4.rylbbm = t5.rylbbm
+   where t2.person_idnum != ?) dd,
+  -- 自己的分类数据
+  (select distinct a.id, a.ly_bt, a.ly_key, a.ly_table, a.cqsj
+   from t_ssgg_fcjg_ys b, t_ssgg_fc_flsjcc a, t_qbgl_ssga c
+   where b.sj_id = a.id
+         and b.gjc = c.person_name
+         and c.person_idnum = ?) ee
+where dd.person_name = bb.gjc
+      and aa.id = ee.id
+      and bb.sj_id=aa.id
+      and aa.sssj>=?
