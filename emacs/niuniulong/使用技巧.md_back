@@ -1,0 +1,12 @@
+1. 打开有root权限的文件 /su:root@localhost mypassword
+2. 炫酷的ido模式 ido-mode
+
+
+dired文件操作
++ 新建文件夹
+o 在另一个buffer 光标也跟过去
+C-o 在另一个buffer 光标不跟过去
+m标记文件 %m 正则标记文件 ％g 标记内容符合规则的文件 
+u 删除标记 M－DEL 删除所有标记的文件
+
+

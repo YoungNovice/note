@@ -1,5 +1,6 @@
 C-h t tutorials
 C-h k 某个块捷键怎么用
+runs the command set-mark-command (found in global-map)
 C-h f 某个函数怎么用
 C-h v 某个变量是什么意思
 C-h m mode帮助
