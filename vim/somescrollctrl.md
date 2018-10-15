@@ -3,7 +3,7 @@ hjkl
 H M L
 
 w e b
-0 ^ $
+0 ^ $ g_
 
 c-f c-b
 c-d c-u
