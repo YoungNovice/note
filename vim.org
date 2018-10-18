@@ -4,4 +4,10 @@ https://segmentfault.com/a/1190000006894422 vim插件介绍
 https://haridas.in/vim-as-your-ide.html vim搞成一个ide
 * mac下工作测试
 * 使用git协议
+https://www.cnblogs.com/forest-wow/p/6916531.html vim插件配置
+https://vimawesome.com 很全的vim插件网址
 
+https://www.jianshu.com/p/6352fadc1916 vim中级配置 简书
+http://www.mamicode.com/info-detail-1372626.html vim配置初级
+https://www.cnblogs.com/TheGrandDesign/articles/2554947.html 将vim配置放到github上
+https://blog.csdn.net/bingoami/article/details/78700314 csdn
