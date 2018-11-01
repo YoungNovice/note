@@ -1,0 +1,231 @@
+PL_SQL  过程 结构化语句
+ 一共分四块
+
+	declare
+	begin
+	exception
+	end ;
+
+
+
+set serveroutput on;
+
+begin
+	dbms_output.put_line ('HelloOracle');
+end;
+
+			--       :=赋值   同pascal
+declare
+	v_name varchar2(20);
+begin
+	v_name := 'myname'  ;       
+	dbms_output.put_line (v_name);
+end;  
+
+
+declare
+ 	v_num number := 0;
+begin
+	v_num := 2/ v_num;
+	dbms_output.put_line(v_num);
+exception
+	when others then
+	dbms_output.put_line('Error');
+end;
+
+--变量的声明规则
+	不能用保留字 select from....
+	第一个字符 必须字母
+	最大30个字符
+	不要与数据库表名 列名相同
+	每一行一个变量
+
+--变量声明
+declare 
+	v_temp number(1);
+	v_count binary_integer := 0;
+	v_sal number(7,2) := 4000.00;
+	v_date date := sysdate;
+	v_pi constant number(3,2) := 3.14;
+	v_valid boolean := false;
+	v_name varchar2(20) not null := 'myName';
+
+--使用%type 属性
+	declare
+		v_empno number(4);
+		v_empno2 emp.empno%type;
+		v_empno3 v_empno2%type;
+	begin
+		dbms_output.put_line('Test');
+	end;
+
+复合变量
+ table   --- type  xxx is table of xxx index by xxx;
+	declare 
+		type type_table_emp_empno is table of emp.empno%type index by binary_integer;
+		v_empnos type_table_emp_empno;
+	begin
+		v_empnos(2) := 7369;
+		v_empnos(-1) := 7839;
+		dbms_output.put_line(v_empnos(-1));
+	end;
+
+
+ record -- type xxx is record ( ) ;
+	declare
+		type type_record_dept is record 
+		(
+			deptno dept.deptno%type,
+			dname dept.dname%type,
+			loc dept.loc%type
+		);
+		v_temp type_record_dept;
+	begin
+		v_temp.dname := 'aaa';
+		v_temp.loc := 'bg';
+ 		v_temp.deptno := 50;
+		dbms_output.put_line(v_temp.deptno || ' ' || v_temp.dname);
+	end;
+
+问题 当dept表添加了字段 那么这里的声明就要修改 怎么不修改呢?
+用 %rowtype 申明record 变量
+	declare
+		v_temp dept%rowtype;
+	begin
+		v_temp.dname := 'aaa';
+		v_temp.loc := 'bg';
+ 		v_temp.deptno := 50;
+		dbms_output.put_line(v_temp.deptno || ' ' || v_temp.dname);
+	end;
+
+PL_SQL 里面的select 有且必须只返回一天记录  
+declare
+	v_ename emp.ename%type;
+	v_sal emp.sal%type;
+begin
+	select ename, sal into  v_ename, v_sal from emp where empno = 7369;
+	dbms_output.put_line(v_ename || ' ' || v_sal);
+end;
+
+declare
+	v_emp emp%rowtype;
+begin select * into v_emp from emp where empno = 7369;
+	dbms_output.put_line(v_emp.ename);
+end;
+	
+
+-----insert 
+declare
+	v_temp dept%rowtype;
+begin
+	v_temp.dname := 'aaa';
+	v_temp.loc := 'bg';
+ 	v_temp.deptno := 50;
+	insert into dept2 values(v_temp.deptno, v_temp.dname, v_temp.loc);
+	commit;
+end;
+------create table
+begin 
+	execute immediate ' create table T（nnn varchar2(20) default ''aaa''）';
+end;
+
+分支 和 循环
+----分支
+declare
+	v_sal emp.sal%type;
+begin
+	select sal into v_sal from emp where empno = 7369;
+	if (v_sal < 1200) then
+		dbms_output.put_line('low');
+	elsif (v_sal < 2000) then
+		dbms_output.put_line('middle');
+	else
+		dbms_output.put_line('high');
+	end if;
+end;
+
+----循环
+declare
+	i binary_integer := 1;
+begin
+	loop
+		dbms_output.put_line(i);
+		i := i +1;
+		exit when (i >= 11 );
+	end loop;
+end;
+
+declare
+	j binary_integer := 1;
+begin
+	while j < 11 loop
+		dbms_output.put_line(j);
+		j := j +1;
+	end loop;
+end;
+
+declare
+      --k binary_integer;
+begin 
+	for k in 1..10 loop   --k可以不需声明
+		dbms_output.put_line(k);
+	end loop;
+	
+	for k in reverse 1..10 loop
+		dbms_output.put_line(k);
+	end loop;
+end;
+
+---错误处理 exception
+declare
+   v_temp number(4);
+begin
+   select empno into v_temp from emp where empno = 10;
+exception
+   when too_many_rows then
+      dbms_output.put_line('太多纪录了');
+   when others then
+      dbms_output.put_line('error');
+end;
+
+----------
+
+declare
+   v_temp number(4);
+begin
+   select empno into v_temp from emp where empno = 2222;
+exception
+   when no_data_found then
+      dbms_output.put_line('没有数据');
+end;
+
+DBA一般讲错误记录在一个表里
+create table errorlog (
+	id number constraint errorlog_id primary key,
+	errorcode number constraint e_code not null,
+	errormsg varchar2(1024) constraint e_msg not null,
+	errdate date  constraint e_date unique
+);
+create sequence seq_errorlog_id start with 1 increment by 1;
+
+declare
+   v_deptno dept.deptno%type := 10;
+   v_errcode number;
+   v_errmsg varchar2(1024);
+begin
+   delete from dept where deptno = v_deptno;
+ commit;
+exception
+   when others then
+      rollback;
+         v_errcode := SQLCODE;
+         v_errmsg := SQLERRM;
+      insert into errorlog values (seq_errorlog_id.nextval, v_errcode, v_errmsg, sysdate);
+      commit;
+end;
+
+
+
+
+
+	

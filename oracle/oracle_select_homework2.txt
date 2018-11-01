@@ -1,0 +1,95 @@
+求平均薪水等级最低的部门的部门名称
+			 --先求出3个部门的平均薪水
+select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno; 
+
+			--求出3个部门的平均薪水及其等级
+select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D     
+join salgrade S
+on D.avg_sal between S.losal and S.hisal;
+			
+			--最低等级值
+select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+		join salgrade S
+		on D.avg_sal between S.losal and S.hisal) F;
+
+select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D     
+join salgrade S
+on D.avg_sal between S.losal and S.hisal
+where S.grade = (select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+		join salgrade S
+		on D.avg_sal between S.losal and S.hisal) F);
+
+eg:
+select G.deptno , H.dname from (
+					select D.avg_sal , D.deptno , S.grade from ( select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno ) D     
+											join salgrade S
+											on D.avg_sal between S.losal and S.hisal
+						where S.grade = ( 
+									select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+														join salgrade S
+														on D.avg_sal between S.losal and S.hisal) F
+								)
+				)  G
+join dept H
+on H.deptno = G.deptno;
+
+create view v$_avg_sal as (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno)
+create view v$_avg_sal_grade as (select D.avg_sal , D.deptno , S.grade from v$_avg_sal D  join salgrade S on D.avg_sal between S.losal and S.hisal) 
+
+建立视图简化后的结果
+	select G.deptno , H.dname, G.avg_sal,G.grade from (
+					select avg_sal, deptno , grade from v$_avg_sal_grade V
+						where V.grade = ( 
+									select min(F.grade) min_grade from v$_avg_sal_grade F
+								)
+				)  G
+	join dept H
+	on H.deptno = G.deptno;
+
+view 
+ create view v_$view as (select ....);
+
+但是会出现权限不足的问题 
+	用超级管理员登陆   给scott赋 create table view 权限
+conn sys/admin as sysdba;
+grant create table, create view to scott;
+conn scott/tiger
+
+求部门经理人中平均薪水最低的部门名称
+
+求比普通员工的最高薪水还要高的经理人名称
+select ename from emp
+where empno in (select distinct mgr from  emp where mgr is not null)
+and
+sal > (select max(sal) from emp where empno not in (select distinct mgr from emp where mgr is not null))
+
+求emp表的前5个人
+	rownum是oracle数据库特有的功能 
+	他会在每个表中加入一个rownum的字段从一开始自增长1  不过只能和 < 还有<=用
+		select empno, ename, rownum from emp where rownum <=5 order by empno desc;
+
+	那么问题来了 为什么rownum 对条件判断只能用< <=呢
+	a: rownum 是对结果集处理 第一条记录的rownum是从一开始的  如果不是< 就会显示没有结果 所有的结果都被排除了
+	question: select ename, sal rownum R from emp order by R desc;
+	a R字段是无规律的 这是因为它是首先把rownum加到表里的
+
+求emp表的6 到10个人
+	select empno , ename, rownum from emp where rownum between 6 and 10; --Error 显示未选定行
+	select empno, ename from (select empno, ename, rownum R from emp) where R between 6 and 10;
+
+
+求薪水最高的前5名雇员
+select ename , sal, rownum R from (select ename, sal from emp order by sal desc) where rownum <= 5
+
+那么问题来了 为什么
+
+求薪水第6到 第10名雇员
+select ename, sal from ( select ename , sal, rownum R  from
+ (select ename, sal from emp order by sal desc) ) T
+where T.R between 6 and 10;
+
+
+
+分析这句话
+SELECT empno, ename, job, mgr, hiredate,  ROW_NUMBER() OVER(ORDER BY empno) rk FROM emp
+

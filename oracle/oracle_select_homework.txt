@@ -1,0 +1,80 @@
+??????Щ???н????
+select ename, sal??emp.deptno from emp 
+join (select max(sal) max_sal, deptno from emp group by deptno) T
+on emp.deptno = T.deptno and T.max_sal = emp.sal;
+
+???? ???н? ????
+ select avg_sal, grade from (select avg(sal) avg_sal ,deptno from emp group by deptno) T
+  2  join salgrade S
+  3  on T.avg_sal between S.losal and S.hisal;
+
+?????????н??? ??????
+select deptno, avg(grade) from (select	deptno , grade from emp
+join salgrade S
+on emp.sal between S.losal and S.hisal) T
+group by T.deptno;
+
+??Щ?????????
+select ename, job, mgr from emp where empno = (select distinct mgr from emp);
+??Щ???????
+select ename , job from emp where job = "MANAGER"; 
+
+?????麯?? ??н?????
+select sal from emp where  emp.sal >=ALL (select sal from emp);
+
+select distinct  sal  max_sal from emp where sal not in (select distinct e1.sal from
+emp e1 join (select sal from emp) E on e1.sal < E.sal);
+
+???н?????????? ?? ????
+select avg(sal) avg_sal from emp E group by E.deptno;  --?????3??????????н?
+select max(avg_sal) from (select avg(sal) avg_sal from emp E group by E.deptno);	--???н??
+select avg(sal) avg_sal, E1.deptno from emp E1
+group by E1.deptno
+having avg(sal) = (select max(avg_sal) from (select avg(sal) avg_sal from emp E group by E.deptno)); --???н??????????
+
+eg: select D.deptno, J.avg_sal, dname from dept D
+join (select avg(sal) avg_sal, E1.deptno from emp E1
+	group by E1.deptno
+	having avg(sal) = (select max(avg_sal) from (select avg(sal) avg_sal from emp E group by E.deptno))) J
+on D.deptno = J.deptno;
+
+eg2: select D.deptno, J.avg_sal, dname from dept D
+join (select avg(sal) avg_sal, E1.deptno from emp E1
+	group by E1.deptno
+	having avg(sal) = (select max(avg(sal)) from  emp  group by deptno)) J
+on D.deptno = J.deptno;
+?麯??????????????? 
+
+
+?????н???????????????????
+			 --?????3??????????н?
+select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno; 
+
+			--???3??????????н???????
+select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D     
+join salgrade S
+on D.avg_sal between S.losal and S.hisal;
+			
+			--??????
+select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+		join salgrade S
+		on D.avg_sal between S.losal and S.hisal) F;
+
+select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D     
+join salgrade S
+on D.avg_sal between S.losal and S.hisal
+where S.grade = (select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+		join salgrade S
+		on D.avg_sal between S.losal and S.hisal) F);
+
+eg:
+select G.deptno , H.dname from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D     
+join salgrade S
+on D.avg_sal between S.losal and S.hisal
+where S.grade = (select min(F.grade) min_grade from (select D.avg_sal , D.deptno , S.grade from (select avg(sal) avg_sal,  E.deptno from emp E group by E.deptno) D  
+		join salgrade S
+		on D.avg_sal between S.losal and S.hisal) F))  G
+join dept H
+on H.deptno = G.deptno;
+
+

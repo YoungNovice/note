@@ -1,0 +1,249 @@
+---游标 cursor
+declare
+	cursor c is   --声明一个游标
+		select * from emp;
+	v_emp c%rowtype;
+begin
+	open c;  --打开游标 这个时候执行 select 
+		fetch c into v_emp; --fetch执行了 游标指针自动下移
+		dbms_output.put_line (v_emp.ename);
+	close c;	--释放游标
+end;	
+
+
+declare
+	cursor c is  
+		select * from emp;
+	v_emp c%rowtype;
+begin
+	open c;  
+		loop
+			fetch c into v_emp;
+			exit when (c%notfound); 
+			dbms_output.put_line (v_emp.ename);
+		end loop;
+	close c;	
+end;
+
+--------------
+isopen  游标是否打开
+notfound  最近的一条fetch语句没有返回结果集 找不着记录返回true
+found
+rowcount 当前fetch了多少条记录
+--------------
+declare
+	cursor c is 
+		select * from emp;
+	v_emp c%rowtype;
+begin 
+	open c;
+	fetch c into v_emp;
+	while (c%found) loop
+		dbms_output.put_line (v_emp.ename);
+		fetch c into v_emp;
+	end loop;
+	close c;
+end;
+---for 是最简单的  v_emp 不需要声明  也不用fetch
+declare
+	cursor c is 
+		select * from emp;
+begin 
+	for v_emp in c loop
+		dbms_output.put_line (v_emp.ename);
+	end loop;
+end;
+
+--带参数的游标
+declare
+	cursor c(v_deptno emp.deptno%type, v_job emp.job%type)
+	is
+		select ename ,sal from emp where deptno = v_deptno and job = v_job;
+begin
+	for v_temp in c(30, 'CLERK') loop
+		dbms_output.put_line (v_temp.ename);
+	end loop;
+end;
+--可更新的游标
+declare	
+	cursor c is 
+		select * from emp2 for update;
+begin
+   for v_temp in c loop
+	if (v_temp.sal < 2000) then 
+		update emp2 set sal = sal *　2 where current of c;
+	elsif (v_temp.sal = 5000) then
+		delete from emp2 where current of c;
+	end if;
+	end loop;
+ commit;
+end;
+
+---存储过程 （带有名字的PL_SQL 语句块）
+create or replace procedure p
+  is
+	cursor c is 
+		select * from emp2 for update;
+begin
+	for v_emp in c loop
+		if (v_emp.deptno = 10) then
+			update  emp2 set sal = sal+10 where current of c;
+		elsif (v_emp.deptno = 20) then
+			update  emp2 set sal = sal+20 where current of c;
+		else
+			update  emp2 set sal = sal+30 where current of c;
+		end if;
+	end loop;
+end;
+
+exec p;  --执行存储过程
+
+begin 
+ p;
+end;
+
+---带参数的存储过程
+create or replace procedure
+ p(v_a in number, v_b number, v_ret out number, v_temp in out number)  -- in 是存储过程的输入值 out是输出值(默认是in)
+ is
+	begin 
+		if (v_a > v_b) then
+			v_ret := v_a;
+		else
+			v_ret := v_b;
+		end if;
+		v_temp := v_temp + 1;
+	end;
+
+//创建的存储过程如果带有错误 用show error 命令显示错误
+
+--利用上面的procedure
+declare
+	v1_a number := 1;
+	v1_b number := 2;
+	v1_ret number;
+	v1_temp number := 5;
+begin
+	p(v1_a, v1_b , v1_ret , v1_temp);
+	dbms_output.put_line(v1_ret);
+	dbms_output.put_line(v1_temp);
+end;
+
+问题 怎么删除一个procedure 	
+eg: drop procedure p;
+procedure也在数据字典中
+select * from user_procedures;	
+
+----函数 function
+create or replace function sal_tax (v_sal number) return number
+	is
+begin 
+	if (v_sal < 2000) then
+		return 0.1;
+	elsif (v_sal <2750) then
+		return 0.15;
+	else
+		return 0.2;
+	end if;
+end;
+自定义函数 一旦定义了 就可以像普通函数一样用
+select lower(ename), sal_tax(sal) from emp;
+
+----触发器triggle
+何为触发器: 某个条件成立的时候，
+	你触发器里面所定义的语句就会被自动的执行
+	因此触发器不需要人为的去调用，也不能调用。
+
+create table emp2_log (
+	uname varchar2(20),
+	action varchar2(10),
+	atime date
+	);
+
+create or replace trigger trig
+	after insert or delete or update on emp2 --for each row(可选项 如果一update 语句更新了6行 则会insert6次)  -- 触发器必须依赖与某表 和 某操作  
+	--before insert or delete or update on emp2 for each row
+begin
+	if inserting then 
+		insert into emp2_log values(USER, 'insert' , sysdate);
+	elsif updating then 
+		insert into emp2_log values(USER, 'update' , sysdate);
+	elsif deleting then
+		insert into emp2_log values(USER, 'delete' , sysdate);
+	end if;
+end;
+
+----树状结构的存储  之 recursion （递归）
+create table article (
+	id number primary key,
+	cont varchar2(4000),
+	pid number,
+	isleaf number(1) constraint a_leaf check(isleaf = 1 or isleaf=0),  -- 0 非叶子 ， 1代表叶子节点  (没有子节点的节点叫叶子)
+	alevel number(2)   （级别 为了层级）
+);
+insert into article values (1, '蚂蚁大战大象', 0, 0, 0);
+insert into article values (2, '大象被打趴下了', 1, 0, 1);
+insert into article values (3, '蚂蚁也不好过', 2, 1, 2);
+insert into article values (4, '瞎说', 2, 0, 2);
+insert into article values (5, '没有瞎说', 4, 1, 3);
+insert into article values (6, '怎么可能', 1, 0, 1);
+insert into article values (7, '怎么没可能', 6, 1, 2);
+insert into article values (8, '可能性是很大的', 6, 1, 2);
+insert into article values (9, '大象进医院了', 2, 0, 2);
+insert into article values (10, '护士是蚂蚁', 9, 1, 3);
+
+
+create or replace procedure p(v_pid   article.pid%type, v_level article.alevel%type)
+ is
+	cursor c is select * from article where pid = v_pid;
+	preStr varchar2(1024) := '';
+begin
+	for t in 1..v_level loop
+		preStr := preStr || '	';	
+	end loop;
+	for v_temp in c loop
+		dbms_output.put_line(preStr || v_temp.cont);
+		--if(v_temp.isleaf = 0) then
+
+			p(v_temp.id, v_level + 1);
+		--end if;
+	end loop;
+end;
+
+
+--emp2表中 员工的关系图
+create or replace procedure p(v_mgr emp.mgr%type, v_level in binary_integer) is
+	cursor c is select empno, ename, mgr from emp2 where mgr = v_mgr;
+	preStr varchar2(1024) := '';
+begin
+	for t in 1..v_level loop
+		preStr := preStr || '	';	
+	end loop;
+	for v_temp in c loop
+		dbms_output.put_line( preStr || v_temp.ename);
+		p(v_temp.empno , v_level + 1);
+	end loop;
+end;
+
+begin
+	update emp2 set mgr = 0 where mgr is null;
+	p(0,0);
+	update emp2 set mgr = null where mgr  = 0;
+	commit;
+end;
+
+
+
+
+
+
+
+		
+
+
+
+
+
+		 
+		
+

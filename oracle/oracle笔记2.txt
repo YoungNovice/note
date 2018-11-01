@@ -1,0 +1,157 @@
+oracle的逻辑结构 逻辑上是不同的表空间 是与用户对应
+drop user xxx caseade --删除用户；
+ 		--创建一个yangxuan名字 密码tiger 默认空间  配额10M
+create user yangxuan identified by 
+tiger default tablespace users quota 10M on users
+		--给yangxuan分配权限
+grant create session, create table, create view to yangxuan
+
+
+备份scott用户的数据
+exp  导出scott的数据
+imp  导入scott的数据
+
+DML语句
+insert delete update
+
+insert 
+	insert into dept2 values (50, 'game', 'bg');
+	insert into dept2 (deptno , dname) values (60, 'wuhan');
+	insert into dept2 select * from dept;  子查询的字段要和要插入的表一致
+
+update 
+	update emp2 set sal = sal*2 , ename = ename||'to' where deptno = 10;
+
+delete 
+	delete from emp2;
+	delete from emp2 where ename like "%to";
+
+
+DDL 数据定义语言
+create table t (a varchar2(10) );	
+drop table t;
+
+事务控制语句
+	什么是事务 transaction
+		一系列的操作要么同时完成 要么全部失败
+	对于oracle来说一个transaction起始于一条DML语句 结束语用户显式的执行rollback 或 commit  
+		（或者 执行了一条DDL  “create table”语句 或 DCL "grant"语句） 事务自动提交  相当于隐式的执行了commit
+	
+
+数据库常用对象
+create table stu(
+	id number(6),
+	name varchar2(20) constraint stu_name_not_null not null,
+	sex number(1),
+	age number(3),
+	sdate date,
+	grade number(2) default 1,
+	class number(4) not null,
+	email varchar2(50) constraint emain_unique unique
+);	
+
+create table stu(
+	id number(6),                                    --constraint stu_pk primary key
+	name varchar2(20) constraint stu_name_not_null not null,    --字段级约束
+	sex number(1),
+	age number(3),
+	sdate date,
+	grade number(2) default 1,
+	class number(4) not null,                          --references class(id)
+	email varchar2(50）,
+	constraint stu_name_emain_un unique(name, email),  --表级别约束
+	constraint stu_pk primary key(id),
+	constraint stu__class foreign key(class)  references class(id)
+);
+
+
+
+create table class(
+	id number(4),
+	name varchar2(20) constraint class_not_n not null, 
+	constraint class_pk_id primary key(id)	
+);	
+
+五个约束条件 (constraint)
+非空 not null
+唯一 unique  (多个null是可以的)
+主键 primary key (not null  and unique)
+外键 foreign key  涉及两个字段
+check 
+
+问题 要求name 和 email的组合不唯一 怎么写  用表级别约束
+
+DQL 数据查询    data query
+DDL 数据定义  data definition
+DML 数据操作	data manipulatioin
+DCL 数据控制	data control
+
+alter table stu add (address varchar2(100));
+alter table stu grop (address);
+alter table stu modify (address varchar2(150));
+alter table drop constraint stu_class_fk;
+---------------------------------------------------------------------------------------------------------------------
+--alter table 表名称 add constraint 约束名称 约束类型 默认值） for 列名      --default约束
+--alter table emp add constraint jfsd default 10000 for gongzi
+
+--alter table 表名 add constraint 约束名称 约束类型 (列名) references 被引用的表名称（列名）   --外键约束
+--alter table emp add constraint jfkdsj foreign key (did) references dept (id)
+
+--alter table bank add constraint punique unique (customerEname)  --修改unique约束
+
+--alter table bank add constraint pk_bank primary key(bank_id)   --修改主键约束
+									--约束的名字
+alter table bank add constraint check_currentMoney check(currentMoney>=1)  --修改check约束
+---------------------------------------------------------------------------------------------------------------------
+总结alter 的作用 1 添加表的字段 2 删除表字段 3修改表字段  4删除约束 5添加约束   （ 修改约束 4 5 合用）
+	
+	
+
+oracle dictionaries  数据字典
+user_tables   --- 表字典
+select table_name from user_tables;
+user_views	--视图字典
+select view_name from user_views;
+user_constraints	--约束字典
+select constraint_name from user_constraints;
+user_indexes --索引字典
+select index_name from user_indexes;
+
+这些表综合在dictionary 表中
+select table_name from dictionary;
+数据字典存储了数据库   表的信息 
+
+index 
+create index idx_stu_email on stu(email);
+drop index idx_stu_email;
+
+
+
+sequence （序列） 用来产生唯一的 不间断的  的数字序列 
+create table article (
+	id number,
+	title varchar2(1024),
+	cont long
+);
+
+create sequence seq;
+select seq.nextval from dual;
+insert into article values(seq.nextval, 'a', 'b');
+
+
+数据库设计的三范式  
+	要求 数据不冗余
+ 通俗的讲列
+	第一范式	表要有主键 列不可分  列不重复
+	第二范式  	（多对多的表设计） 主键依赖 不能存在部分依赖  eg:表中有两个字段一起作为复合主键  其他字段可以依赖复合主键 但不能只依赖其中的一个键  
+			可以将多对多的关系 分为三张表 两个表 存数据 还有一个表存关系 
+	第三范式	不能与主键间接相关
+
+
+
+
+
+
+
+
+
