@@ -37,6 +37,7 @@
 [如何安装vim插件]:https://segmentfault.com/a/1190000008552449
 [中文字符集编码]:https://www.cnblogs.com/finallyliuyu/archive/2013/05/10/3071023.html
 [Apache CXF 快速使用]:https://blog.csdn.net/u012815136/article/details/82423530
+[oracle 多表update]:https://www.cnblogs.com/franson-2016/p/5988303.html
 
 
 * [Servlet容器Tomcat中web.xml中url-pattern的配置详解(附带源码分析)]
@@ -77,3 +78,4 @@
 * [如何安装vim插件]
 * [中文字符集]
 * [Apache CXF 快速使用]
+* [oracle 多表update]
