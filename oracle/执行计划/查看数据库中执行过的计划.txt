@@ -1,0 +1,4 @@
+-- 找到执行过的sql  
+select hash_value, sql_id, sql_text from v$sql 
+-- 通过sql的hash_value找到执行计划
+select * from table(dbms_xplan.display_cursor(652398349, 0, 'advanced'));
