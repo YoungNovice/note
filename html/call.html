@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>call 和 apply 就是参数不一样而已 bind</title>
+    </head>
+    <body>
+        <button id="c1">点我</button>
+    </body>
+    <script>
+        // function hello(thing) {
+        //     console.log(this + " say hello " + thing);
+        // }
+        // // call 第一个参数就是this
+        // hello.call("yangxuan", "world");
+        //
+        // hello("world")
+        // // 等价于上面的
+        // hello.call(window, "world");
+        // // ecmascript5中的严格模式下 等价于
+        // hello.call(undefined, "world");
+
+
+        // 等式 fn(...args) <==> fn.call(window [ES5-strict:undefined], ...args);
+        // 等式 (function () {})() <==> (function () { }).call(window [ES5-strict:undefined]);
+
+        // 成员函数
+        // var person = {
+        //     name: "yangxuan",
+        //     hello: function (thing) {
+        //         console.log(this + " say hello " + thing);
+        //     }
+        // };
+        // person.hello("nihao");
+        // // 等价于上面
+        // person.hello.call(person, "world");
+
+        // function hello(thing) {
+        //     console.log(this + " say hello " + thing);
+        // }
+        //
+        // person = {name: "yangxuan"};
+        //
+        // person.hello = hello;
+        //
+        // person.hello("world"); // person.hello.call(person, "world");
+        //
+        // hello("world") // window
+
+
+        var person = {
+            name: "Brendan Eich",
+            hello: function(thing) {
+                console.log(this.name + " says hello " + thing);
+            }
+        };
+
+        var boundHello = function(thing) {
+            return person.hello(thing);
+        };
+
+        boundHello("world");
+
+        var bind = function (func, thisValue) {
+            return function () {
+                func.apply(thisValue, arguments);
+            }
+        };
+
+        // 用person对象调用person.hello方法
+        var bindHello  = bind(person.hello, person);
+        bindHello("world"); // ==  person.hello.apply(person, ["world"]);
+        // 其实es5中已经实现了类似上面的bind方法 底层实际上爹调用apply方法
+        var bH = person.hello.bind(person);
+        bH("world");
+
+
+
+        document.getElementById("c1").onclick = function (ev) {
+            // person.hello.call(person, "world");
+             person.hello.apply(person, ["world"]);
+             // 我们自己写的bind方法实际上还是apply
+            // bind(person.hello, person)("world");
+            // person.hello.bind(person)("world");
+        };
+    </script>
+</html>
